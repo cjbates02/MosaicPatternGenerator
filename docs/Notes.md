@@ -22,3 +22,25 @@ F = front loop double crochet. (differs outside the united states)
 - the first column and the last column are color coded w/ the required row color.
 - colors are never switched mid row in mosaic crochet.
 - first 2 rows are often single crochet's indicating the pattern has not started yet.
+
+### Implementation Notes
+- users will choose stitch count (width in stitches).
+- height will be dynamically determine via the aspect ratio.
+
+### User Flow
+- user uploads an image.
+- user adjusts aspect ratio to desired stitch count.
+- user set's configuration settings for chart. TBD.
+- chart is generated and displayed to user.
+- users may export chart to PDF or CSV.
+
+### Architecture
+**Client**
+- Image picker / upload (remains local on each client.)
+- Chart generation engine.
+- Chart exporter.
+
+**Server**
+- User authentication.
+- User pattern retention.
+- Entitlements.
