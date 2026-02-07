@@ -1,7 +1,7 @@
 ## Mosaic Pattern Generator
 
 **Description**
-Mobile first application designed to enable users to generate mosaic patterns and provide instructions as to how to crochet said pattern.
+- Upload any image and generate a mosaic chart from it.
 
 ### Mosaic Pattern Charts
 B = back loop single crochet. (differs outside the united states)
@@ -22,4 +22,3 @@ F = front loop double crochet. (differs outside the united states)
 - the first column and the last column are color coded w/ the required row color.
 - colors are never switched mid row in mosaic crochet.
 - first 2 rows are often single crochet's indicating the pattern has not started yet.
-
