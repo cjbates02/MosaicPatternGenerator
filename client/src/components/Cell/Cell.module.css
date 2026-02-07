@@ -1,0 +1,19 @@
+.cell {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  min-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e8e8e8;
+  background: #fff;
+}
+
+.cellContent {
+  font-size: 6px;
+  font-family: system-ui, sans-serif;
+  line-height: 1;
+  color: #333;
+  user-select: none;
+}

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { ImageProcessor } from './lib/image_processor'
 import { loadImageFromFile } from './utils'
 import { MosaicEngine } from './lib/mosaic_engine'
+import Row from './components/Row/Row'
+import styles from './Home.module.css'
 
 function Home() {
   const [image, setImage] = useState<HTMLImageElement | null>(null)
@@ -25,28 +27,30 @@ function Home() {
     if (!image) return
     const processor = new ImageProcessor(image, stitchWidth)
     const imageData = processor.getImageData()
-    console.log(imageData);
-    console.log('Pixel grid:', imageData.width, 'x', imageData.height, imageData.data.length / 4, 'pixels');
+
     const mosaicEngine = new MosaicEngine(imageData);
     const mosaic = mosaicEngine.generateMosaic();
+
     setMosaic(mosaic);
   }
 
   return (
-    <>
-      <div>Upload an image to generate a mosaic chart</div>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      {error && <div role="alert">{error}</div>}
-      {image && <p>Loaded: {image.naturalWidth}×{image.naturalHeight}</p>}
-      <button onClick={handleGenerate} disabled={!image}>Generate Chart</button>
-      <div id="mosaic-container">
-        {mosaic.map((row, index) => {
-          return (
-            <div key={index} className="mosaic-row">{row.join('')}</div>
-          )
-        })}
+    <div className={styles.page}>
+      <div className={styles.upload}>
+        <h2 className={styles.uploadTitle}>Upload an image to generate a mosaic chart</h2>
+        <div className={styles.uploadActions}>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <button onClick={handleGenerate} disabled={!image}>Generate Chart</button>
+        </div>
+        {error && <div className={styles.error} role="alert">{error}</div>}
+        {image && <p className={styles.meta}>Loaded: {image.naturalWidth}×{image.naturalHeight}</p>}
       </div>
-    </>
+      <div className={styles.mosaicContainer} id="mosaic-container">
+        {mosaic.map((row, index) => (
+          <Row key={index} mosaicRow={row} />
+        ))}
+      </div>
+    </div>
   )
 }
 

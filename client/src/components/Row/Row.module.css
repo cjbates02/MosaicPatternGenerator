@@ -1,0 +1,10 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  margin-bottom: 1px;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
