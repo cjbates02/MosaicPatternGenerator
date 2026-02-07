@@ -6,6 +6,7 @@ import { MosaicEngine } from './lib/mosaic_engine'
 function Home() {
   const [image, setImage] = useState<HTMLImageElement | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [mosaic, setMosaic] = useState<string[][]>([])
   const stitchWidth = 50
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -28,7 +29,7 @@ function Home() {
     console.log('Pixel grid:', imageData.width, 'x', imageData.height, imageData.data.length / 4, 'pixels');
     const mosaicEngine = new MosaicEngine(imageData);
     const mosaic = mosaicEngine.generateMosaic();
-    console.log(mosaic);
+    setMosaic(mosaic);
   }
 
   return (
@@ -38,6 +39,13 @@ function Home() {
       {error && <div role="alert">{error}</div>}
       {image && <p>Loaded: {image.naturalWidth}×{image.naturalHeight}</p>}
       <button onClick={handleGenerate} disabled={!image}>Generate Chart</button>
+      <div id="mosaic-container">
+        {mosaic.map((row, index) => {
+          return (
+            <div key={index} className="mosaic-row">{row.join('')}</div>
+          )
+        })}
+      </div>
     </>
   )
 }
