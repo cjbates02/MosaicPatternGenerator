@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ImageProcessor } from './lib/image_processor'
 import { loadImageFromFile } from './utils'
+import { MosaicEngine } from './lib/mosaic_engine'
 
 function Home() {
   const [image, setImage] = useState<HTMLImageElement | null>(null)
@@ -23,7 +24,11 @@ function Home() {
     if (!image) return
     const processor = new ImageProcessor(image, stitchWidth)
     const imageData = processor.getImageData()
-    console.log('Pixel grid:', imageData.width, 'x', imageData.height, imageData.data.length / 4, 'pixels')
+    console.log(imageData);
+    console.log('Pixel grid:', imageData.width, 'x', imageData.height, imageData.data.length / 4, 'pixels');
+    const mosaicEngine = new MosaicEngine(imageData);
+    const mosaic = mosaicEngine.generateMosaic();
+    console.log(mosaic);
   }
 
   return (

@@ -1,4 +1,5 @@
 export class ImageProcessor {
+  // returns image data in the form of [r,g,b,a, r,g,b,a, ...] per pixel, row-major.
   image: HTMLImageElement;
   width: number;
 
