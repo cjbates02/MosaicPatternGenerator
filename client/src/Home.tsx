@@ -29,7 +29,7 @@ function Home() {
     const imageData = processor.getImageData()
 
     const mosaicEngine = new MosaicEngine(imageData);
-    const mosaic = mosaicEngine.generateMosaic();
+    const mosaic = mosaicEngine.generateMosaicChart();
 
     setMosaic(mosaic);
   }

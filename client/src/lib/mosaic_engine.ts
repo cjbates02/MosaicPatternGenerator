@@ -1,3 +1,8 @@
+const SOLID_BOX = 'SB';
+const BLANK_BOX = ' ';
+const SC_BOX = 'SC';
+const DC_BOX = 'DC';
+
 export class MosaicEngine {
     imageData: ImageData;
     threshold: number;
@@ -11,9 +16,15 @@ export class MosaicEngine {
         this.secondaryColor = secondaryColor;
     }
 
-    generateMosaic(): string[][] {
+    generateMosaicChart(): string[][] {
+        let mosaicChart =  this.initializeMosaicPattern();
+        mosaicChart = this.addDoubleCrochetStitches(mosaicChart);
+        return mosaicChart;
+    }
+
+    private initializeMosaicPattern(): string[][] {
         const { width, height, data } = this.imageData;
-        const mosaic: string[][] = [];
+        const mosaicChart: string[][] = [];
         let currentColor = this.primaryColor;
         for (let row = 0; row < height; row++) {
             const mosaicRow: string[] = [];
@@ -24,13 +35,17 @@ export class MosaicEngine {
                 const g = data[i + 1];
                 const b = data[i + 2];
                 const lum = this.getLuminance(r, g, b);
-                mosaicRow.push(lum >= this.threshold ? 'F' : 'B');
+                mosaicRow.push(lum >= this.threshold ? BLANK_BOX : SOLID_BOX);
             }
             mosaicRow.push(currentColor); // add the primary color to the end of the row
-            mosaic.push(mosaicRow);
+            mosaicChart.push(mosaicRow);
             currentColor = currentColor === this.primaryColor ? this.secondaryColor : this.primaryColor; // toggle the color for the next row
         }
-        return mosaic;
+        return mosaicChart;
+    }
+
+    private addDoubleCrochetStitches(mosaicChart: string[][]): string[][] {
+        return mosaicChart;
     }
 
     private getLuminance(r: number, g: number, b: number): number {
