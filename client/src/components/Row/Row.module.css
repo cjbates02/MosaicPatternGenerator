@@ -3,8 +3,13 @@
   flex-direction: row;
   gap: 1px;
   margin-bottom: 1px;
+  justify-content: center;
 }
 
 .row:last-child {
   margin-bottom: 0;
+}
+
+.bodyRows {
+    display: flex;
 }

@@ -5,11 +5,13 @@ export default function Row({ mosaicRow }: { mosaicRow: string[] }) {
     const cells = mosaicRow.slice(1, -1).map((cell, index) => {
         return <Cell key={index} cellContent={cell} />
     });
-    cells.unshift(<Cell key={0} cellContent={mosaicRow[0]} />);
-    cells.push(<Cell key={cells.length} cellContent={mosaicRow[-1]} />);
     return (
         <div className={styles.row}>
-            {cells}
+            <Cell cellContent={mosaicRow[0]}/>
+            <div className={styles.bodyRows}>
+                {cells}
+            </div>
+            <Cell cellContent={mosaicRow[mosaicRow.length - 1]}/>
         </div>
     )
 }

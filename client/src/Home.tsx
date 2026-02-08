@@ -40,10 +40,13 @@ function Home() {
         <h2 className={styles.uploadTitle}>Upload an image to generate a mosaic chart</h2>
         <div className={styles.uploadActions}>
           <input type="file" accept="image/*" onChange={handleFileChange} />
-          <button onClick={handleGenerate} disabled={!image}>Generate Chart</button>
         </div>
         {error && <div className={styles.error} role="alert">{error}</div>}
+        <div className={styles.uploadFooterContainer}>
         {image && <p className={styles.meta}>Loaded: {image.naturalWidth}×{image.naturalHeight}</p>}
+        {!image && <p className={styles.meta}>No image loaded</p>}
+          <button onClick={handleGenerate} disabled={!image}>Generate Chart</button>
+        </div>
       </div>
       <div className={styles.mosaicContainer} id="mosaic-container">
         {mosaic.map((row, index) => (
