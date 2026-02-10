@@ -2,6 +2,7 @@ const SOLID_BOX = 'SB';
 const BLANK_BOX = ' ';
 const SC_BOX = 'SC';
 const DC_BOX = 'DC';
+const DCS = 'DCS'; // double crochet solid box.
 
 export class MosaicEngine {
     imageData: ImageData;
@@ -45,6 +46,18 @@ export class MosaicEngine {
     }
 
     private addDoubleCrochetStitches(mosaicChart: string[][]): string[][] {
+        const { height, width } = this.imageData;
+        for (let row = 0; row < height; row++) {
+            for (let col = 0; col < width; col++) {
+                if (row >= height - 3) {
+                    continue;
+                }
+                const currentStitch = mosaicChart[row][col];
+                if (currentStitch === SOLID_BOX) {
+                    mosaicChart[row - 3][col] = DC_BOX + SOLID_BOX;
+                }
+            }
+        }
         return mosaicChart;
     }
 
