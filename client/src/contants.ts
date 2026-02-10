@@ -3,5 +3,5 @@ export enum Stitches {
     BLANK_BOX = ' ',
     SC_BOX = 'SC',
     DC_BOX = 'DC',
-    DCS = 'DCS' // double crochet solid box.
+    DCS_BOX = 'DCS' // double crochet solid box.
 }

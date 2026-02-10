@@ -50,7 +50,7 @@ export class MosaicEngine {
                 }
                 const currentStitch = mosaicChart[row][col];
                 if (currentStitch === Stitches.SOLID_BOX) {
-                    mosaicChart[row - 3][col] = Stitches.DCS;
+                    mosaicChart[row + 3][col] = Stitches.DC_BOX;
                 }
             }
         }
