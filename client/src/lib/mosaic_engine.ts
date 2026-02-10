@@ -1,8 +1,4 @@
-const SOLID_BOX = 'SB';
-const BLANK_BOX = ' ';
-const SC_BOX = 'SC';
-const DC_BOX = 'DC';
-const DCS = 'DCS'; // double crochet solid box.
+import {Stitches} from '../contants.ts';
 
 export class MosaicEngine {
     imageData: ImageData;
@@ -36,7 +32,7 @@ export class MosaicEngine {
                 const g = data[i + 1];
                 const b = data[i + 2];
                 const lum = this.getLuminance(r, g, b);
-                mosaicRow.push(lum >= this.threshold ? BLANK_BOX : SOLID_BOX);
+                mosaicRow.push(lum >= this.threshold ? Stitches.BLANK_BOX : Stitches.SOLID_BOX);
             }
             mosaicRow.push(currentColor); // add the primary color to the end of the row
             mosaicChart.push(mosaicRow);
@@ -53,8 +49,8 @@ export class MosaicEngine {
                     continue;
                 }
                 const currentStitch = mosaicChart[row][col];
-                if (currentStitch === SOLID_BOX) {
-                    mosaicChart[row - 3][col] = DC_BOX + SOLID_BOX;
+                if (currentStitch === Stitches.SOLID_BOX) {
+                    mosaicChart[row - 3][col] = Stitches.DCS;
                 }
             }
         }

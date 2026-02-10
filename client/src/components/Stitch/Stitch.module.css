@@ -1,4 +1,4 @@
-.cell {
+.stitch {
   width: 10px;
   height: 10px;
   min-width: 10px;
@@ -10,10 +10,18 @@
   background: #fff;
 }
 
-.cellContent {
+.stitchContent {
   font-size: 6px;
   font-family: system-ui, sans-serif;
   line-height: 1;
   color: #333;
   user-select: none;
+}
+
+.solidStitch {
+  background-color: blue;
+}
+
+.doubleCrochetStitch {
+  background-color: blue;
 }
