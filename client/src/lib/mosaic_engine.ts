@@ -15,7 +15,8 @@ export class MosaicEngine {
 
     generateMosaicChart(): string[][] {
         let mosaicChart =  this.initializeMosaicPattern();
-        mosaicChart = this.addDoubleCrochetStitches(mosaicChart);
+        mosaicChart = this.addRelativeDoubleCrochetStitches(mosaicChart);
+        mosaicChart = this.addRestOfDoubleCrochetStitches(mosaicChart);
         return mosaicChart;
     }
 
@@ -41,20 +42,46 @@ export class MosaicEngine {
         return mosaicChart;
     }
 
-    private addDoubleCrochetStitches(mosaicChart: string[][]): string[][] {
+    private addRelativeDoubleCrochetStitches(mosaicChart: string[][]): string[][] {
         const { height, width } = this.imageData;
-        for (let row = 0; row < height; row++) {
+        for (let row = 3; row < height; row++) {
             for (let col = 0; col < width; col++) {
-                if (row >= height - 3) {
-                    continue;
-                }
                 const currentStitch = mosaicChart[row][col];
-                if (currentStitch === Stitches.SOLID_BOX) {
-                    mosaicChart[row + 3][col] = Stitches.DC_BOX;
+                if (currentStitch !== Stitches.SOLID_BOX) {
+                    continue
+                }
+                const doubleCrochetCell = mosaicChart[row - 2][col];
+                if (doubleCrochetCell === Stitches.SOLID_BOX) {
+                    mosaicChart[row - 2][col] = Stitches.DCS_BOX;
+                } else {
+                    mosaicChart[row - 2][col] = Stitches.DC_BOX;
                 }
             }
         }
         return mosaicChart;
+    } 
+
+    private addRestOfDoubleCrochetStitches(mosaicChart: string[][]): string[][] {
+        const { height, width } = this.imageData;
+        for (let row = 0; row < height; row += 2) {
+            for (let col = 0; col < width; col++) {
+                const currentStitch = mosaicChart[row][col] as Stitches;
+                if (row === height - 1) { // last row
+                    mosaicChart[row][col] = Stitches.DC_BOX;
+                } else if (row + 1 < height && this.isCurrentStitchValid(currentStitch) && this.isDoubleCrochetValid(mosaicChart[row + 1][col] as Stitches)) {
+                    mosaicChart[row][col] = Stitches.DC_BOX;
+                }
+            }
+        }
+        return mosaicChart;
+    }
+
+    private isDoubleCrochetValid(stitch: Stitches): boolean {
+        return stitch !== Stitches.DCS_BOX && stitch !== Stitches.DC_BOX;
+    }
+
+    private isCurrentStitchValid(stitch: Stitches): boolean {
+        return stitch === Stitches.BLANK_BOX || stitch === Stitches.SC_BOX;
     }
 
     private getLuminance(r: number, g: number, b: number): number {
